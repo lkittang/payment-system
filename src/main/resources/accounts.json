@@ -1,0 +1,219 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "PaymentService API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "{server}/accounts",
+      "variables": {
+        "server": {
+          "default": "https://api.server.test"
+        }
+      }
+    }
+  ],
+  "components": {
+    "schemas": {
+      "accountId": {
+        "type": "number"
+      },
+      "currency":{
+        "type": "string",
+        "enum": ["GBP"]
+      },
+      "newAccountRequest": {
+        "type": "object",
+        "properties": {
+          "newAccountId": {
+              "$ref": "#/components/schemas/accountId"
+          }
+        }
+      },
+      "balanceResponse": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "$ref": "#/components/schemas/accountId"
+          },
+          "balance": {
+            "type": "number"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/currency"
+          }
+        }
+      },
+      "accountNotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "$ref": "#/components/responses/accountNotFound"
+          }
+        }
+      },
+      "paymentRequestBody": {
+        "type": "object",
+        "properties": {
+          "recipientAccountId": {
+            "$ref": "#/components/schemas/accountId"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/currency"
+          }
+        }
+      },
+      "paymentResponse": {
+        "type": "object",
+        "properties": {
+          "newBalance": {
+            "$ref": "#/components/schemas/balanceResponse"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "accountId": {
+        "name": "accountId",
+        "in": "path",
+        "description": "Id of account",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "accountNotFound": {
+        "description": "Account not found"
+      },
+      "accountBalance": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/balanceResponse"
+            }
+          }
+        }
+      },
+      "paymentSuccessful": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/paymentResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/": {
+      "post": {
+        "description": "Create new account",
+        "operationId": "PostNewAccount",
+        "requestBody": {
+          "description": "New account payload",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/newAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/accountBalance"
+          },
+          "404": {
+            "description": "Invalid accountId. Account already exists"
+          }
+        }
+      }
+    },
+    "/{accountId}":{
+      "parameters": [
+        {"$ref": "#/components/parameters/accountId"}
+      ],
+      "get": {
+        "description": "Get account details",
+        "operationId": "GetAccountDetails",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/accountBalance"
+          },
+          "404": {
+            "$ref": "#/components/responses/accountNotFound"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete account",
+        "responses": {
+          "204": {
+            "description": "Account deleted"
+          },
+          "404": {
+            "$ref": "#/components/responses/accountNotFound"
+          }
+        }
+      }
+    },
+    "/{accountId}/payment": {
+      "description": "Request payment",
+      "parameters": [
+        {"$ref": "#/components/parameters/accountId"}
+      ],
+      "post": {
+        "description": "Perform payment",
+        "operationId": "PostPayment",
+        "requestBody": {
+          "description": "New payment payload",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/paymentRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/paymentSuccessful"
+          },
+          "404": {
+            "description": "Invalid recipient account"
+          },
+          "500": {
+            "description": "Insufficient funds"
+          }
+        }
+      }
+    },
+    "/{accountId}/balance": {
+      "description": "Request account balance",
+      "parameters": [
+        {"$ref": "#/components/parameters/accountId"}
+      ],
+      "get": {
+        "description": "Get account balance",
+        "operationId": "GetAccountBalance",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/accountBalance"
+          },
+          "404": {
+            "$ref": "#/components/responses/accountNotFound"
+          }
+        }
+      }
+    }
+  }
+}
