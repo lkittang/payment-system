@@ -9,7 +9,7 @@
       "url": "{server}/accounts",
       "variables": {
         "server": {
-          "default": "https://api.server.test"
+          "default": "https://localhost:8090"
         }
       }
     }
@@ -42,14 +42,6 @@
           },
           "currency": {
             "$ref": "#/components/schemas/currency"
-          }
-        }
-      },
-      "accountNotFoundResponse": {
-        "type": "object",
-        "properties": {
-          "404": {
-            "$ref": "#/components/responses/accountNotFound"
           }
         }
       },
