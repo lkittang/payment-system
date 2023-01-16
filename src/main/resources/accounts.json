@@ -6,10 +6,10 @@
   },
   "servers": [
     {
-      "url": "{server}/accounts",
+      "url": "{server}",
       "variables": {
         "server": {
-          "default": "https://localhost:8090"
+          "default": "http://localhost:8090"
         }
       }
     }
@@ -23,11 +23,28 @@
         "type": "string",
         "enum": ["GBP"]
       },
+      "ownerName": {
+        "type": "string"
+      },
       "newAccountRequest": {
         "type": "object",
         "properties": {
-          "newAccountId": {
+          "accountId": {
               "$ref": "#/components/schemas/accountId"
+          },
+          "ownerName": {
+            "$ref": "#/components/schemas/ownerName"
+          }
+        }
+      },
+      "accountDetails": {
+        "type": "object",
+        "properties": {
+          "ownerName": {
+            "$ref": "#/components/schemas/ownerName"
+          },
+          "accountId": {
+            "$ref": "#/components/schemas/accountId"
           }
         }
       },
@@ -83,12 +100,24 @@
       "accountNotFound": {
         "description": "Account not found"
       },
+      "accountDetails": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/accountDetails",
+              "required": ["ownerName", "accountId"]
+            }
+          }
+        }
+      },
       "accountBalance": {
         "description": "OK",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/balanceResponse"
+              "$ref": "#/components/schemas/balanceResponse",
+              "required": ["accountId", "balance", "currency"]
             }
           }
         }
@@ -98,7 +127,8 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/paymentResponse"
+              "$ref": "#/components/schemas/paymentResponse",
+              "required": ["newBalance"]
             }
           }
         }
@@ -106,10 +136,10 @@
     }
   },
   "paths": {
-    "/": {
+    "/accounts": {
       "post": {
         "description": "Create new account",
-        "operationId": "PostNewAccount",
+        "operationId": "CreateNewAccount",
         "requestBody": {
           "description": "New account payload",
           "content": {
@@ -130,24 +160,15 @@
         }
       }
     },
-    "/{accountId}":{
+    "/accounts/{accountId}":{
       "parameters": [
-        {"$ref": "#/components/parameters/accountId"}
-      ],
-      "get": {
-        "description": "Get account details",
-        "operationId": "GetAccountDetails",
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/accountBalance"
-          },
-          "404": {
-            "$ref": "#/components/responses/accountNotFound"
-          }
+        {
+          "$ref": "#/components/parameters/accountId"
         }
-      },
+      ],
       "delete": {
         "description": "Delete account",
+        "operationId": "DeleteAccount",
         "responses": {
           "204": {
             "description": "Account deleted"
@@ -158,14 +179,34 @@
         }
       }
     },
-    "/{accountId}/payment": {
-      "description": "Request payment",
+    "/accounts/{accountId}/details": {
       "parameters": [
-        {"$ref": "#/components/parameters/accountId"}
+        {
+          "$ref": "#/components/parameters/accountId"
+        }
+      ],
+      "get": {
+        "description": "Get account details",
+        "operationId": "GetAccountDetails",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/accountDetails"
+          },
+          "404": {
+            "$ref": "#/components/responses/accountNotFound"
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/payment": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/accountId"
+        }
       ],
       "post": {
         "description": "Perform payment",
-        "operationId": "PostPayment",
+        "operationId": "PerformPayment",
         "requestBody": {
           "description": "New payment payload",
           "content": {
@@ -189,10 +230,11 @@
         }
       }
     },
-    "/{accountId}/balance": {
-      "description": "Request account balance",
+    "/accounts/{accountId}/balance": {
       "parameters": [
-        {"$ref": "#/components/parameters/accountId"}
+        {
+          "$ref": "#/components/parameters/accountId"
+        }
       ],
       "get": {
         "description": "Get account balance",
