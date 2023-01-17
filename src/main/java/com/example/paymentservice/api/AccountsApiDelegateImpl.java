@@ -22,10 +22,9 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
     @Override
     public ResponseEntity<BalanceResponse> createNewAccount(NewAccountRequest newAccountRequest) {
         System.out.println("POST /");
-        Optional<Map.Entry<Integer, Account>> accountExists = accountRepository.getAccounts().entrySet().stream()
-                .filter(accountEntry -> accountEntry.getValue().getDetails().id() == newAccountRequest.getAccountId())
-                .findAny();
-        if (accountExists.isPresent()) {
+        boolean isAccountExists = accountRepository.getAccounts().entrySet().stream()
+                .anyMatch(accountEntry -> accountEntry.getValue().getDetails().id() == newAccountRequest.getAccountId());
+        if (isAccountExists) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             return ResponseEntity.ok(accountRepository.createAccount(newAccountRequest));
@@ -45,12 +44,7 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
                 .filter(entry -> entry.getKey().equals(accountId))
                 .findAny();
         if (accountEntry.isPresent()) {
-            Account account = accountEntry.get().getValue();
-            BalanceResponse balanceResponse = new BalanceResponse();
-            balanceResponse.setAccountId(accountId);
-            balanceResponse.setBalance(account.getBalance());
-            balanceResponse.setCurrency(Currency.fromValue(account.getCurrency()));
-            return ResponseEntity.ok(balanceResponse);
+            return ResponseEntity.ok(createBalanceResponse(accountId, accountEntry.get().getValue()));
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -64,7 +58,6 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
 
     @Override
     public ResponseEntity<Void> performTransfer(Integer accountId, TransferRequestBody paymentRequestBody) {
-        System.out.println("POST /"+ accountId + "/transfer");
         Integer recipientAccountNumber = paymentRequestBody.getRecipientAccountNumber();
         BigDecimal amount = paymentRequestBody.getAmount();
         try {
@@ -73,6 +66,14 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    private static BalanceResponse createBalanceResponse(Integer accountId, Account account) {
+        BalanceResponse balanceResponse = new BalanceResponse();
+        balanceResponse.setAccountId(accountId);
+        balanceResponse.setBalance(account.getBalance());
+        balanceResponse.setCurrency(Currency.fromValue(account.getCurrency()));
+        return balanceResponse;
     }
 }
 
