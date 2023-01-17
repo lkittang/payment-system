@@ -17,14 +17,17 @@
   "components": {
     "schemas": {
       "accountId": {
-        "type": "number"
+        "type": "integer"
       },
       "currency":{
         "type": "string",
-        "enum": ["GBP"]
+        "enum": ["EUR"]
       },
       "ownerName": {
         "type": "string"
+      },
+      "accountNumber": {
+        "type": "integer"
       },
       "newAccountRequest": {
         "type": "object",
@@ -32,19 +35,19 @@
           "accountId": {
               "$ref": "#/components/schemas/accountId"
           },
-          "ownerName": {
-            "$ref": "#/components/schemas/ownerName"
+          "accountNumber": {
+            "$ref": "#/components/schemas/accountNumber"
           }
         }
       },
       "accountDetails": {
         "type": "object",
         "properties": {
-          "ownerName": {
-            "$ref": "#/components/schemas/ownerName"
-          },
           "accountId": {
             "$ref": "#/components/schemas/accountId"
+          },
+          "accountNumber": {
+            "$ref": "#/components/schemas/accountNumber"
           }
         }
       },
@@ -65,8 +68,8 @@
       "paymentRequestBody": {
         "type": "object",
         "properties": {
-          "recipientAccountId": {
-            "$ref": "#/components/schemas/accountId"
+          "recipientAccountNumber": {
+            "$ref": "#/components/schemas/accountNumber"
           },
           "amount": {
             "type": "number"
@@ -92,7 +95,7 @@
         "description": "Id of account",
         "required": true,
         "schema": {
-          "type": "string"
+          "$ref": "#/components/schemas/accountId"
         }
       }
     },
@@ -106,7 +109,7 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/accountDetails",
-              "required": ["ownerName", "accountId"]
+              "required": ["accountId", "accountNumber"]
             }
           }
         }
@@ -145,7 +148,8 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/newAccountRequest"
+                "$ref": "#/components/schemas/newAccountRequest",
+                "required": ["accountId", "accountNumber"]
               }
             }
           }
@@ -154,7 +158,7 @@
           "200": {
             "$ref": "#/components/responses/accountBalance"
           },
-          "404": {
+          "400": {
             "description": "Invalid accountId. Account already exists"
           }
         }
@@ -212,7 +216,8 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/paymentRequestBody"
+                "$ref": "#/components/schemas/paymentRequestBody",
+                "required": ["recipientAccountNumber", "amount", "currency"]
               }
             }
           }

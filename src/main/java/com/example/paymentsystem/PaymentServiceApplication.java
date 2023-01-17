@@ -1,4 +1,4 @@
-package com.example.account;
+package com.example.paymentsystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
