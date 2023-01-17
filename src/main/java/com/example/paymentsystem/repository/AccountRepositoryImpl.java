@@ -1,9 +1,12 @@
 package com.example.paymentsystem.repository;
 
 import com.example.account.model.BalanceResponse;
+import com.example.account.model.Currency;
 import com.example.account.model.NewAccountRequest;
 import com.example.account.model.PaymentResponse;
 import com.example.paymentsystem.account.Account;
+import com.example.paymentsystem.account.AccountDetails;
+import com.example.paymentsystem.account.AccountImpl;
 import com.example.paymentsystem.account.AccountMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,15 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public BalanceResponse createAccount(NewAccountRequest request) {
-        return null;
+        Currency currency = Currency.EUR;
+        AccountDetails accountDetails = new AccountDetails(request.getAccountId(), request.getAccountNumber());
+        Account account = new AccountImpl(accountDetails, currency.getValue());
+        accountMap.getMap().put(request.getAccountId(), account);
+        BalanceResponse balanceResponse = new BalanceResponse();
+        balanceResponse.setAccountId(request.getAccountId());
+        balanceResponse.setCurrency(currency);
+        balanceResponse.setBalance(account.getBalance());
+        return balanceResponse;
     }
 
     @Override
