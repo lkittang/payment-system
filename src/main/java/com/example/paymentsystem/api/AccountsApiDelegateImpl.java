@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Optional;
 
@@ -54,7 +55,6 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-//        return AccountsApiDelegate.super.getAccountBalance(accountId);
     }
 
     @Override
@@ -66,7 +66,14 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
     @Override
     public ResponseEntity<PaymentResponse> performPayment(Integer accountId, PaymentRequestBody paymentRequestBody) {
         System.out.println("POST /"+ accountId + "/payment");
-        return AccountsApiDelegate.super.performPayment(accountId, paymentRequestBody);
+        Integer recipientAccountNumber = paymentRequestBody.getRecipientAccountNumber();
+        BigDecimal amount = paymentRequestBody.getAmount();
+        try {
+            PaymentResponse response = accountRepository.performPayment(accountId, recipientAccountNumber, amount);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
 

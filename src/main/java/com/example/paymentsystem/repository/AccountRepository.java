@@ -12,5 +12,5 @@ public interface AccountRepository {
     BalanceResponse createAccount(NewAccountRequest request);
     void deleteAccount(int accountId);
     Map<Integer, Account> getAccounts();
-    PaymentResponse performPayment(int sourceId, int recipientId, BigDecimal amount) throws Exception;
+    PaymentResponse performPayment(int sourceId, int accountNumber, BigDecimal amount) throws Exception;
 }
