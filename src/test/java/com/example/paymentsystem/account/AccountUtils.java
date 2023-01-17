@@ -1,7 +1,11 @@
 package com.example.paymentsystem.account;
 
+import com.example.account.model.BalanceResponse;
 import com.example.account.model.Currency;
 import com.example.account.model.PaymentRequestBody;
+import com.example.account.model.PaymentResponse;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 
@@ -18,5 +22,13 @@ public class AccountUtils {
         paymentRequest.setAmount(transferAmount);
         paymentRequest.setCurrency(Currency.EUR);
         return paymentRequest;
+    }
+
+    static ResponseEntity<BalanceResponse> getBalance(int accountId, TestRestTemplate restTemplate) {
+        return restTemplate.getForEntity("/accounts/" + accountId + "/balance", BalanceResponse.class);
+    }
+
+    static ResponseEntity<PaymentResponse> performPayment(int accountId, PaymentRequestBody paymentRequest, TestRestTemplate restTemplate) {
+        return restTemplate.postForEntity("/accounts/" + accountId + "/payment", paymentRequest, PaymentResponse.class);
     }
 }
