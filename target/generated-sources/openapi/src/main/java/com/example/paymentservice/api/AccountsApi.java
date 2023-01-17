@@ -3,13 +3,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package com.example.account.api;
+package com.example.paymentservice.api;
 
-import com.example.account.model.AccountDetails;
-import com.example.account.model.BalanceResponse;
-import com.example.account.model.NewAccountRequest;
-import com.example.account.model.PaymentRequestBody;
-import com.example.account.model.PaymentResponse;
+import com.example.paymentservice.model.AccountDetails;
+import com.example.paymentservice.model.BalanceResponse;
+import com.example.paymentservice.model.NewAccountRequest;
+import com.example.paymentservice.model.PaymentRequestBody;
+import com.example.paymentservice.model.PaymentResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T00:02:53.553960600+01:00[Europe/Oslo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:15:29.926427300+01:00[Europe/Oslo]")
 @Validated
 @Tag(name = "accounts", description = "the accounts API")
 @RequestMapping("${openapi.paymentService.base-path:}")

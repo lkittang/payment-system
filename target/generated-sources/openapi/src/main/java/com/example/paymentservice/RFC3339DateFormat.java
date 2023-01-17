@@ -1,4 +1,4 @@
-package com.example.account;
+package com.example.paymentservice;
 
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 

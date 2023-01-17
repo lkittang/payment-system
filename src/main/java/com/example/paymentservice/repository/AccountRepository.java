@@ -1,9 +1,9 @@
 package com.example.paymentservice.repository;
 
 import com.example.paymentservice.account.Account;
-import com.example.account.model.BalanceResponse;
-import com.example.account.model.NewAccountRequest;
-import com.example.account.model.PaymentResponse;
+import com.example.paymentservice.model.BalanceResponse;
+import com.example.paymentservice.model.NewAccountRequest;
+import com.example.paymentservice.model.PaymentResponse;
 
 import java.math.BigDecimal;
 import java.util.Map;

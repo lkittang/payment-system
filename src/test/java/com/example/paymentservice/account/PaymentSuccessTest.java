@@ -1,8 +1,8 @@
 package com.example.paymentservice.account;
 
-import com.example.account.api.AccountsApiController;
-import com.example.account.model.PaymentRequestBody;
-import com.example.account.model.PaymentResponse;
+import com.example.paymentservice.api.AccountsApiController;
+import com.example.paymentservice.model.PaymentRequestBody;
+import com.example.paymentservice.model.PaymentResponse;
 import com.example.paymentservice.PaymentServiceApplication;
 import com.example.paymentservice.api.AccountsApiDelegateImpl;
 import com.example.paymentservice.repository.AccountRepositoryImpl;

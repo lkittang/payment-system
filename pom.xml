@@ -18,7 +18,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <generatedPackage>com.example.account</generatedPackage>
+        <generatedPackage>com.example.paymentservice</generatedPackage>
     </properties>
 
     <dependencies>

@@ -1,9 +1,9 @@
 package com.example.paymentservice.repository;
 
-import com.example.account.model.BalanceResponse;
-import com.example.account.model.Currency;
-import com.example.account.model.NewAccountRequest;
-import com.example.account.model.PaymentResponse;
+import com.example.paymentservice.model.BalanceResponse;
+import com.example.paymentservice.model.Currency;
+import com.example.paymentservice.model.NewAccountRequest;
+import com.example.paymentservice.model.PaymentResponse;
 import com.example.paymentservice.account.Account;
 import com.example.paymentservice.account.AccountDetails;
 import com.example.paymentservice.account.AccountImpl;

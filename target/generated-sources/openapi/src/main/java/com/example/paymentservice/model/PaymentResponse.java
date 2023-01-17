@@ -1,8 +1,8 @@
-package com.example.account.model;
+package com.example.paymentservice.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.example.account.model.BalanceResponse;
+import com.example.paymentservice.model.BalanceResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -21,7 +21,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("paymentResponse")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T00:02:53.553960600+01:00[Europe/Oslo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:15:29.926427300+01:00[Europe/Oslo]")
 public class PaymentResponse {
 
   @JsonProperty("newBalance")

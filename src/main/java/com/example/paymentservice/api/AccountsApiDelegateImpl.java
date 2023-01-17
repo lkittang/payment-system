@@ -1,8 +1,7 @@
 package com.example.paymentservice.api;
 
-import com.example.account.api.AccountsApiDelegate;
-import com.example.account.model.*;
 import com.example.paymentservice.account.Account;
+import com.example.paymentservice.model.*;
 import com.example.paymentservice.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

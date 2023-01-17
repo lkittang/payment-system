@@ -1,9 +1,9 @@
 package com.example.paymentservice.account;
 
-import com.example.account.model.BalanceResponse;
-import com.example.account.model.Currency;
-import com.example.account.model.PaymentRequestBody;
-import com.example.account.model.PaymentResponse;
+import com.example.paymentservice.model.BalanceResponse;
+import com.example.paymentservice.model.Currency;
+import com.example.paymentservice.model.PaymentRequestBody;
+import com.example.paymentservice.model.PaymentResponse;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
