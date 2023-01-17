@@ -2,6 +2,8 @@ package com.example.paymentsystem.account;
 
 import com.example.account.api.AccountsApiController;
 import com.example.account.model.BalanceResponse;
+import com.example.account.model.PaymentRequestBody;
+import com.example.account.model.PaymentResponse;
 import com.example.paymentsystem.PaymentServiceApplication;
 import com.example.paymentsystem.api.AccountsApiDelegateImpl;
 import com.example.paymentsystem.repository.AccountRepositoryImpl;
@@ -17,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,12 +33,42 @@ public class PaymentServiceSpringBootTest {
     @Autowired public TestRestTemplate restTemplate;
 
     @Test
-    public void testGetBalance() {
-        ResponseEntity<BalanceResponse> response = restTemplate.getForEntity("/accounts/111/balance", BalanceResponse.class);
-        Assertions.assertNotNull(response);
+    public void whenValidAccountDetails_thenReturnBalance() {
+        ResponseEntity<BalanceResponse> response = getBalance(111);
+
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertEquals(BigDecimal.valueOf(100.0), response.getBody().getBalance());
     }
 
+    @Test
+    public void whenInvalidAccountDetails_thenRejectBalance() {
+        ResponseEntity<BalanceResponse> response = getBalance(999);
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void whenValidDetailsAndSufficientFunds_thenCreditAndDebitAccountsCorrectly() {
+        // Before
+        BigDecimal beforeBalance111 = getBalance(111).getBody().getBalance();
+        BigDecimal beforeBalance222 = getBalance(222).getBody().getBalance();
+        BigDecimal transferAmount = BigDecimal.valueOf(10.0);
+
+        PaymentRequestBody paymentRequest = AccountUtils.createPaymentRequest(222, transferAmount);
+
+        // Operate
+        ResponseEntity<PaymentResponse> response = restTemplate.postForEntity("/accounts/111/payment", paymentRequest, PaymentResponse.class);
+
+        // Assert
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        BigDecimal newBalance111 = getBalance(111).getBody().getBalance();
+        BigDecimal newBalance222 = getBalance(222).getBody().getBalance();
+        Assertions.assertEquals(beforeBalance111.subtract(transferAmount), newBalance111);
+        Assertions.assertEquals(beforeBalance222.add(transferAmount), newBalance222);
+    }
+
+    private ResponseEntity<BalanceResponse> getBalance(int accountId) {
+        return restTemplate.getForEntity("/accounts/" + accountId + "/balance", BalanceResponse.class);
+    }
     @TestConfiguration
     public static class StandardTestConfig {
         @Bean
