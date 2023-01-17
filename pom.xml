@@ -106,7 +106,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/accounts.json</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/payment-service.json</inputSpec>
                             <generatorName>spring</generatorName>
                             <configOptions>
                                 <basePackage>${generatedPackage}</basePackage>
