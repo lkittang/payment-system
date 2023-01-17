@@ -1,4 +1,4 @@
-package com.example.paymentsystem.account;
+package com.example.paymentservice.account;
 
 import java.util.Map;
 

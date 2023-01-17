@@ -1,6 +1,6 @@
-package com.example.paymentsystem.repository;
+package com.example.paymentservice.repository;
 
-import com.example.paymentsystem.account.Account;
+import com.example.paymentservice.account.Account;
 import com.example.account.model.BalanceResponse;
 import com.example.account.model.NewAccountRequest;
 import com.example.account.model.PaymentResponse;

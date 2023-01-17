@@ -1,4 +1,4 @@
-package com.example.paymentsystem.account;
+package com.example.paymentservice.account;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;

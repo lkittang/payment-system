@@ -1,11 +1,11 @@
-package com.example.paymentsystem.account;
+package com.example.paymentservice.account;
 
 import com.example.account.api.AccountsApiController;
 import com.example.account.model.BalanceResponse;
 import com.example.account.model.NewAccountRequest;
-import com.example.paymentsystem.PaymentServiceApplication;
-import com.example.paymentsystem.api.AccountsApiDelegateImpl;
-import com.example.paymentsystem.repository.AccountRepositoryImpl;
+import com.example.paymentservice.PaymentServiceApplication;
+import com.example.paymentservice.api.AccountsApiDelegateImpl;
+import com.example.paymentservice.repository.AccountRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

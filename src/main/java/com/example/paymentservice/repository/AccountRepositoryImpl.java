@@ -1,13 +1,13 @@
-package com.example.paymentsystem.repository;
+package com.example.paymentservice.repository;
 
 import com.example.account.model.BalanceResponse;
 import com.example.account.model.Currency;
 import com.example.account.model.NewAccountRequest;
 import com.example.account.model.PaymentResponse;
-import com.example.paymentsystem.account.Account;
-import com.example.paymentsystem.account.AccountDetails;
-import com.example.paymentsystem.account.AccountImpl;
-import com.example.paymentsystem.account.AccountMap;
+import com.example.paymentservice.account.Account;
+import com.example.paymentservice.account.AccountDetails;
+import com.example.paymentservice.account.AccountImpl;
+import com.example.paymentservice.account.AccountMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

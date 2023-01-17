@@ -1,9 +1,9 @@
-package com.example.paymentsystem.api;
+package com.example.paymentservice.api;
 
 import com.example.account.api.AccountsApiDelegate;
 import com.example.account.model.*;
-import com.example.paymentsystem.account.Account;
-import com.example.paymentsystem.repository.AccountRepository;
+import com.example.paymentservice.account.Account;
+import com.example.paymentservice.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.paymentsystem.account;
+package com.example.paymentservice.account;
 
 import com.example.account.model.BalanceResponse;
 import com.example.account.model.Currency;
