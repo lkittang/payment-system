@@ -31,19 +31,19 @@ public class PaymentInvalidAccountTest {
     // 2
     public void whenInvalidReceiverAccountAndSufficientFunds_thenRejectTransfer() {
         // Before
-        BigDecimal beforeBalance222 = AccountUtils.getBalance(222, restTemplate).getBody().getBalance();
-        BigDecimal beforeBalance111 = AccountUtils.getBalance(111, restTemplate).getBody().getBalance();
+        BigDecimal beforeBalance222 = TestUtils.getBalance(222, restTemplate).getBody().getBalance();
+        BigDecimal beforeBalance111 = TestUtils.getBalance(111, restTemplate).getBody().getBalance();
         BigDecimal transferAmount = BigDecimal.valueOf(10.0);
 
-        PaymentRequestBody paymentRequest = AccountUtils.createPaymentRequest(111000, transferAmount);
+        PaymentRequestBody paymentRequest = TestUtils.createPaymentRequest(111000, transferAmount);
 
         // Operate
-        ResponseEntity<PaymentResponse> response = AccountUtils.performPayment(222, paymentRequest, restTemplate);
+        ResponseEntity<PaymentResponse> response = TestUtils.performPayment(222, paymentRequest, restTemplate);
 
         // Assert
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        BigDecimal newBalance111 = AccountUtils.getBalance(111, restTemplate).getBody().getBalance();
-        BigDecimal newBalance222 = AccountUtils.getBalance(222, restTemplate).getBody().getBalance();
+        BigDecimal newBalance111 = TestUtils.getBalance(111, restTemplate).getBody().getBalance();
+        BigDecimal newBalance222 = TestUtils.getBalance(222, restTemplate).getBody().getBalance();
         Assertions.assertEquals(beforeBalance111, newBalance111);
         Assertions.assertEquals(beforeBalance222, newBalance222);
     }

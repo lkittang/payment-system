@@ -30,7 +30,7 @@ public class CreateAccountTest {
     @Test
     public void whenCreatingNotExistingAccount_thenRetrieveBalance() {
         // Before
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, AccountUtils.getBalance(333, restTemplate).getStatusCode());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, TestUtils.getBalance(333, restTemplate).getStatusCode());
 
         // Operate
         NewAccountRequest newAccountRequest = new NewAccountRequest();

@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 
-public class AccountUtils {
+public class TestUtils {
+
+    private TestUtils() {}
+
     static Account createAccount(int accountId, int accountNumber, String currency, double balance) {
         Account account = new AccountImpl(new AccountDetails(accountId, accountNumber), currency);
         account.setBalance(BigDecimal.valueOf(balance));

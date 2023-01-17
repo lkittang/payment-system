@@ -29,7 +29,7 @@ public class AccountBalanceTest {
     @Test
     // 4
     public void whenValidAccountDetails_thenReturnBalance() {
-        ResponseEntity<BalanceResponse> response = AccountUtils.getBalance(111, restTemplate);
+        ResponseEntity<BalanceResponse> response = TestUtils.getBalance(111, restTemplate);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(BigDecimal.valueOf(100.0), response.getBody().getBalance());
@@ -38,7 +38,7 @@ public class AccountBalanceTest {
     @Test
     // 5
     public void whenInvalidAccountDetails_thenRejectBalance() {
-        ResponseEntity<BalanceResponse> response = AccountUtils.getBalance(999, restTemplate);
+        ResponseEntity<BalanceResponse> response = TestUtils.getBalance(999, restTemplate);
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 

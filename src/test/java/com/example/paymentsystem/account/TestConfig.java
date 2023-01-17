@@ -12,10 +12,10 @@ public class TestConfig {
     public AccountMap accountMap() {
         Map<Integer, Account> accountMap = new HashMap<>();
 
-        Account account111 = AccountUtils.createAccount(111, 111000, "EUR", 100.0);
+        Account account111 = TestUtils.createAccount(111, 111000, "EUR", 100.0);
         accountMap.put(111, account111);
 
-        Account account222 = AccountUtils.createAccount(222, 222000, "EUR", 0.0);
+        Account account222 = TestUtils.createAccount(222, 222000, "EUR", 0.0);
         accountMap.put(222, account222);
 
         return new AccountMapImpl(accountMap);
