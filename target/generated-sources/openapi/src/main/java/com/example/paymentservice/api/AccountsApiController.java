@@ -3,8 +3,8 @@ package com.example.paymentservice.api;
 import com.example.paymentservice.model.AccountDetails;
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.NewAccountRequest;
-import com.example.paymentservice.model.PaymentRequestBody;
-import com.example.paymentservice.model.PaymentResponse;
+import com.example.paymentservice.model.TransferRequestBody;
+import com.example.paymentservice.model.TransferResponse;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:15:29.926427300+01:00[Europe/Oslo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:31:22.130791700+01:00[Europe/Oslo]")
 @Controller
 public class AccountsApiController implements AccountsApi {
 

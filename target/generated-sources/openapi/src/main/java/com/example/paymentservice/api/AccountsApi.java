@@ -8,8 +8,8 @@ package com.example.paymentservice.api;
 import com.example.paymentservice.model.AccountDetails;
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.NewAccountRequest;
-import com.example.paymentservice.model.PaymentRequestBody;
-import com.example.paymentservice.model.PaymentResponse;
+import com.example.paymentservice.model.TransferRequestBody;
+import com.example.paymentservice.model.TransferResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:15:29.926427300+01:00[Europe/Oslo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:31:22.130791700+01:00[Europe/Oslo]")
 @Validated
 @Tag(name = "accounts", description = "the accounts API")
 @RequestMapping("${openapi.paymentService.base-path:}")
@@ -154,20 +154,20 @@ public interface AccountsApi {
 
 
     /**
-     * POST /accounts/{accountId}/payment
-     * Perform payment
+     * POST /accounts/{accountId}/transfer
+     * Perform transfer
      *
      * @param accountId Id of account (required)
-     * @param paymentRequestBody New payment payload (optional)
+     * @param transferRequestBody New transfer payload (optional)
      * @return OK (status code 200)
      *         or Invalid recipient account (status code 404)
      *         or Insufficient funds (status code 500)
      */
     @Operation(
-        operationId = "performPayment",
+        operationId = "performTransfer",
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = PaymentResponse.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TransferResponse.class))
             }),
             @ApiResponse(responseCode = "404", description = "Invalid recipient account"),
             @ApiResponse(responseCode = "500", description = "Insufficient funds")
@@ -175,15 +175,15 @@ public interface AccountsApi {
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/accounts/{accountId}/payment",
+        value = "/accounts/{accountId}/transfer",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<PaymentResponse> performPayment(
+    default ResponseEntity<TransferResponse> performTransfer(
         @Parameter(name = "accountId", description = "Id of account", required = true) @PathVariable("accountId") Integer accountId,
-        @Parameter(name = "PaymentRequestBody", description = "New payment payload") @Valid @RequestBody(required = false) PaymentRequestBody paymentRequestBody
+        @Parameter(name = "TransferRequestBody", description = "New transfer payload") @Valid @RequestBody(required = false) TransferRequestBody transferRequestBody
     ) {
-        return getDelegate().performPayment(accountId, paymentRequestBody);
+        return getDelegate().performTransfer(accountId, transferRequestBody);
     }
 
 }

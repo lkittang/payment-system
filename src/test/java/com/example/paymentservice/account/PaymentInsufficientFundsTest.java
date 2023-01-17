@@ -1,8 +1,8 @@
 package com.example.paymentservice.account;
 
 import com.example.paymentservice.api.AccountsApiController;
-import com.example.paymentservice.model.PaymentRequestBody;
-import com.example.paymentservice.model.PaymentResponse;
+import com.example.paymentservice.model.TransferRequestBody;
+import com.example.paymentservice.model.TransferResponse;
 import com.example.paymentservice.PaymentServiceApplication;
 import com.example.paymentservice.api.AccountsApiDelegateImpl;
 import com.example.paymentservice.repository.AccountRepositoryImpl;
@@ -36,8 +36,8 @@ public class PaymentInsufficientFundsTest {
         BigDecimal transferAmount = BigDecimal.valueOf(10.0);
 
         // Operate
-        PaymentRequestBody paymentRequest = TestUtils.createPaymentRequest(111000, transferAmount);
-        ResponseEntity<PaymentResponse> response = TestUtils.performPayment(222, paymentRequest, restTemplate);
+        TransferRequestBody paymentRequest = TestUtils.createPaymentRequest(111000, transferAmount);
+        ResponseEntity<TransferResponse> response = TestUtils.performPayment(222, paymentRequest, restTemplate);
 
         // Assert
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());

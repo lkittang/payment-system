@@ -63,12 +63,12 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
     }
 
     @Override
-    public ResponseEntity<PaymentResponse> performPayment(Integer accountId, PaymentRequestBody paymentRequestBody) {
-        System.out.println("POST /"+ accountId + "/payment");
+    public ResponseEntity<TransferResponse> performTransfer(Integer accountId, TransferRequestBody paymentRequestBody) {
+        System.out.println("POST /"+ accountId + "/transfer");
         Integer recipientAccountNumber = paymentRequestBody.getRecipientAccountNumber();
         BigDecimal amount = paymentRequestBody.getAmount();
         try {
-            PaymentResponse response = accountRepository.performPayment(accountId, recipientAccountNumber, amount);
+            TransferResponse response = accountRepository.performTransfer(accountId, recipientAccountNumber, amount);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

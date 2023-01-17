@@ -1,10 +1,10 @@
 package com.example.paymentservice.account;
 
-import com.example.paymentservice.api.AccountsApiController;
-import com.example.paymentservice.model.PaymentRequestBody;
-import com.example.paymentservice.model.PaymentResponse;
 import com.example.paymentservice.PaymentServiceApplication;
+import com.example.paymentservice.api.AccountsApiController;
 import com.example.paymentservice.api.AccountsApiDelegateImpl;
+import com.example.paymentservice.model.TransferRequestBody;
+import com.example.paymentservice.model.TransferResponse;
 import com.example.paymentservice.repository.AccountRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,10 +35,10 @@ public class PaymentInvalidAccountTest {
         BigDecimal beforeBalance111 = TestUtils.getBalance(111, restTemplate).getBody().getBalance();
         BigDecimal transferAmount = BigDecimal.valueOf(10.0);
 
-        PaymentRequestBody paymentRequest = TestUtils.createPaymentRequest(111000, transferAmount);
+        TransferRequestBody paymentRequest = TestUtils.createPaymentRequest(111000, transferAmount);
 
         // Operate
-        ResponseEntity<PaymentResponse> response = TestUtils.performPayment(222, paymentRequest, restTemplate);
+        ResponseEntity<TransferResponse> response = TestUtils.performPayment(222, paymentRequest, restTemplate);
 
         // Assert
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());

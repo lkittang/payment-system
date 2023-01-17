@@ -17,17 +17,17 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * PaymentResponse
+ * TransferResponse
  */
 
-@JsonTypeName("paymentResponse")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:15:29.926427300+01:00[Europe/Oslo]")
-public class PaymentResponse {
+@JsonTypeName("transferResponse")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:31:22.130791700+01:00[Europe/Oslo]")
+public class TransferResponse {
 
   @JsonProperty("newBalance")
   private BalanceResponse newBalance;
 
-  public PaymentResponse newBalance(BalanceResponse newBalance) {
+  public TransferResponse newBalance(BalanceResponse newBalance) {
     this.newBalance = newBalance;
     return this;
   }
@@ -54,8 +54,8 @@ public class PaymentResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PaymentResponse paymentResponse = (PaymentResponse) o;
-    return Objects.equals(this.newBalance, paymentResponse.newBalance);
+    TransferResponse transferResponse = (TransferResponse) o;
+    return Objects.equals(this.newBalance, transferResponse.newBalance);
   }
 
   @Override
@@ -66,7 +66,7 @@ public class PaymentResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PaymentResponse {\n");
+    sb.append("class TransferResponse {\n");
     sb.append("    newBalance: ").append(toIndentedString(newBalance)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -3,8 +3,8 @@ package com.example.paymentservice.api;
 import com.example.paymentservice.model.AccountDetails;
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.NewAccountRequest;
-import com.example.paymentservice.model.PaymentRequestBody;
-import com.example.paymentservice.model.PaymentResponse;
+import com.example.paymentservice.model.TransferRequestBody;
+import com.example.paymentservice.model.TransferResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link AccountsApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:15:29.926427300+01:00[Europe/Oslo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:31:22.130791700+01:00[Europe/Oslo]")
 public interface AccountsApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -111,18 +111,18 @@ public interface AccountsApiDelegate {
     }
 
     /**
-     * POST /accounts/{accountId}/payment
-     * Perform payment
+     * POST /accounts/{accountId}/transfer
+     * Perform transfer
      *
      * @param accountId Id of account (required)
-     * @param paymentRequestBody New payment payload (optional)
+     * @param transferRequestBody New transfer payload (optional)
      * @return OK (status code 200)
      *         or Invalid recipient account (status code 404)
      *         or Insufficient funds (status code 500)
-     * @see AccountsApi#performPayment
+     * @see AccountsApi#performTransfer
      */
-    default ResponseEntity<PaymentResponse> performPayment(Integer accountId,
-        PaymentRequestBody paymentRequestBody) {
+    default ResponseEntity<TransferResponse> performTransfer(Integer accountId,
+        TransferRequestBody transferRequestBody) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

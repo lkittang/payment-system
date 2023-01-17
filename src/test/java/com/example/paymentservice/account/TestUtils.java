@@ -2,8 +2,8 @@ package com.example.paymentservice.account;
 
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.Currency;
-import com.example.paymentservice.model.PaymentRequestBody;
-import com.example.paymentservice.model.PaymentResponse;
+import com.example.paymentservice.model.TransferRequestBody;
+import com.example.paymentservice.model.TransferResponse;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
@@ -19,8 +19,8 @@ public class TestUtils {
         return account;
     }
 
-    static PaymentRequestBody createPaymentRequest(int recipientAccountNumber, BigDecimal transferAmount) {
-        PaymentRequestBody paymentRequest = new PaymentRequestBody();
+    static TransferRequestBody createPaymentRequest(int recipientAccountNumber, BigDecimal transferAmount) {
+        TransferRequestBody paymentRequest = new TransferRequestBody();
         paymentRequest.setRecipientAccountNumber(recipientAccountNumber);
         paymentRequest.setAmount(transferAmount);
         paymentRequest.setCurrency(Currency.EUR);
@@ -31,7 +31,7 @@ public class TestUtils {
         return restTemplate.getForEntity("/accounts/" + accountId + "/balance", BalanceResponse.class);
     }
 
-    static ResponseEntity<PaymentResponse> performPayment(int accountId, PaymentRequestBody paymentRequest, TestRestTemplate restTemplate) {
-        return restTemplate.postForEntity("/accounts/" + accountId + "/payment", paymentRequest, PaymentResponse.class);
+    static ResponseEntity<TransferResponse> performPayment(int accountId, TransferRequestBody paymentRequest, TestRestTemplate restTemplate) {
+        return restTemplate.postForEntity("/accounts/" + accountId + "/transfer", paymentRequest, TransferResponse.class);
     }
 }

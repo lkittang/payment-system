@@ -3,7 +3,7 @@ package com.example.paymentservice.repository;
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.Currency;
 import com.example.paymentservice.model.NewAccountRequest;
-import com.example.paymentservice.model.PaymentResponse;
+import com.example.paymentservice.model.TransferResponse;
 import com.example.paymentservice.account.Account;
 import com.example.paymentservice.account.AccountDetails;
 import com.example.paymentservice.account.AccountImpl;
@@ -47,7 +47,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public PaymentResponse performPayment(int sourceId, int accountNumber, BigDecimal amount) throws Exception {
+    public TransferResponse performTransfer(int sourceId, int accountNumber, BigDecimal amount) throws Exception {
         Optional<Map.Entry<Integer, Account>> source = accountMap.getMap().entrySet().stream()
                 .filter(entry -> entry.getKey().equals(sourceId))
                 .findAny();
@@ -63,7 +63,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                 balanceResponse.setAccountId(source.get().getKey());
                 balanceResponse.setCurrency(Currency.valueOf(source.get().getValue().getCurrency()));
                 balanceResponse.setBalance(source.get().getValue().getBalance());
-                PaymentResponse response = new PaymentResponse();
+                TransferResponse response = new TransferResponse();
                 response.setNewBalance(balanceResponse);
                 return response;
             } else {

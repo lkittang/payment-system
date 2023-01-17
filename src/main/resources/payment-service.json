@@ -65,7 +65,7 @@
           }
         }
       },
-      "paymentRequestBody": {
+      "transferRequestBody": {
         "type": "object",
         "properties": {
           "recipientAccountNumber": {
@@ -79,7 +79,7 @@
           }
         }
       },
-      "paymentResponse": {
+      "transferResponse": {
         "type": "object",
         "properties": {
           "newBalance": {
@@ -125,12 +125,12 @@
           }
         }
       },
-      "paymentSuccessful": {
+      "transferSuccessful": {
         "description": "OK",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/paymentResponse",
+              "$ref": "#/components/schemas/transferResponse",
               "required": ["newBalance"]
             }
           }
@@ -202,21 +202,21 @@
         }
       }
     },
-    "/accounts/{accountId}/payment": {
+    "/accounts/{accountId}/transfer": {
       "parameters": [
         {
           "$ref": "#/components/parameters/accountId"
         }
       ],
       "post": {
-        "description": "Perform payment",
-        "operationId": "PerformPayment",
+        "description": "Perform transfer",
+        "operationId": "PerformTransfer",
         "requestBody": {
-          "description": "New payment payload",
+          "description": "New transfer payload",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/paymentRequestBody",
+                "$ref": "#/components/schemas/transferRequestBody",
                 "required": ["recipientAccountNumber", "amount", "currency"]
               }
             }
@@ -224,7 +224,7 @@
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/paymentSuccessful"
+            "$ref": "#/components/responses/transferSuccessful"
           },
           "404": {
             "description": "Invalid recipient account"

@@ -1,10 +1,10 @@
 package com.example.paymentservice.account;
 
-import com.example.paymentservice.api.AccountsApiController;
-import com.example.paymentservice.model.PaymentRequestBody;
-import com.example.paymentservice.model.PaymentResponse;
 import com.example.paymentservice.PaymentServiceApplication;
+import com.example.paymentservice.api.AccountsApiController;
 import com.example.paymentservice.api.AccountsApiDelegateImpl;
+import com.example.paymentservice.model.TransferRequestBody;
+import com.example.paymentservice.model.TransferResponse;
 import com.example.paymentservice.repository.AccountRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,10 +35,10 @@ public class PaymentSuccessTest {
         BigDecimal beforeBalance222 = TestUtils.getBalance(222, restTemplate).getBody().getBalance();
         BigDecimal transferAmount = BigDecimal.valueOf(10.0);
 
-        PaymentRequestBody paymentRequest = TestUtils.createPaymentRequest(222000, transferAmount);
+        TransferRequestBody paymentRequest = TestUtils.createPaymentRequest(222000, transferAmount);
 
         // Operate
-        ResponseEntity<PaymentResponse> response = TestUtils.performPayment(111, paymentRequest, restTemplate);
+        ResponseEntity<TransferResponse> response = TestUtils.performPayment(111, paymentRequest, restTemplate);
 
         // Assert
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());

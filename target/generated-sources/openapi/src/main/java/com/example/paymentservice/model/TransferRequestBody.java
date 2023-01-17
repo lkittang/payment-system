@@ -18,12 +18,12 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * PaymentRequestBody
+ * TransferRequestBody
  */
 
-@JsonTypeName("paymentRequestBody")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:15:29.926427300+01:00[Europe/Oslo]")
-public class PaymentRequestBody {
+@JsonTypeName("transferRequestBody")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:31:22.130791700+01:00[Europe/Oslo]")
+public class TransferRequestBody {
 
   @JsonProperty("recipientAccountNumber")
   private Integer recipientAccountNumber;
@@ -34,7 +34,7 @@ public class PaymentRequestBody {
   @JsonProperty("currency")
   private Currency currency;
 
-  public PaymentRequestBody recipientAccountNumber(Integer recipientAccountNumber) {
+  public TransferRequestBody recipientAccountNumber(Integer recipientAccountNumber) {
     this.recipientAccountNumber = recipientAccountNumber;
     return this;
   }
@@ -53,7 +53,7 @@ public class PaymentRequestBody {
     this.recipientAccountNumber = recipientAccountNumber;
   }
 
-  public PaymentRequestBody amount(BigDecimal amount) {
+  public TransferRequestBody amount(BigDecimal amount) {
     this.amount = amount;
     return this;
   }
@@ -72,7 +72,7 @@ public class PaymentRequestBody {
     this.amount = amount;
   }
 
-  public PaymentRequestBody currency(Currency currency) {
+  public TransferRequestBody currency(Currency currency) {
     this.currency = currency;
     return this;
   }
@@ -99,10 +99,10 @@ public class PaymentRequestBody {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PaymentRequestBody paymentRequestBody = (PaymentRequestBody) o;
-    return Objects.equals(this.recipientAccountNumber, paymentRequestBody.recipientAccountNumber) &&
-        Objects.equals(this.amount, paymentRequestBody.amount) &&
-        Objects.equals(this.currency, paymentRequestBody.currency);
+    TransferRequestBody transferRequestBody = (TransferRequestBody) o;
+    return Objects.equals(this.recipientAccountNumber, transferRequestBody.recipientAccountNumber) &&
+        Objects.equals(this.amount, transferRequestBody.amount) &&
+        Objects.equals(this.currency, transferRequestBody.currency);
   }
 
   @Override
@@ -113,7 +113,7 @@ public class PaymentRequestBody {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PaymentRequestBody {\n");
+    sb.append("class TransferRequestBody {\n");
     sb.append("    recipientAccountNumber: ").append(toIndentedString(recipientAccountNumber)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
