@@ -23,7 +23,7 @@ import java.math.BigDecimal;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = PaymentServiceApplication.class
 )
-@Import(PaymentServiceSpringBootTest.StandardTestConfig.class)
+@Import(TestConfig.class)
 @ContextConfiguration(classes = {AccountsApiController.class, AccountsApiDelegateImpl.class, AccountRepositoryImpl.class})
 public class PaymentServiceSpringBootTest {
     @Autowired public TestRestTemplate restTemplate;
