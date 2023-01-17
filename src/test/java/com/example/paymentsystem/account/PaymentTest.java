@@ -1,7 +1,6 @@
 package com.example.paymentsystem.account;
 
 import com.example.account.api.AccountsApiController;
-import com.example.account.model.BalanceResponse;
 import com.example.account.model.PaymentRequestBody;
 import com.example.account.model.PaymentResponse;
 import com.example.paymentsystem.PaymentServiceApplication;
@@ -25,7 +24,7 @@ import java.math.BigDecimal;
 )
 @Import(TestConfig.class)
 @ContextConfiguration(classes = {AccountsApiController.class, AccountsApiDelegateImpl.class, AccountRepositoryImpl.class})
-public class PaymentServiceSpringBootTest {
+public class PaymentTest {
     @Autowired public TestRestTemplate restTemplate;
 
     @Test
@@ -88,22 +87,6 @@ public class PaymentServiceSpringBootTest {
         Assertions.assertEquals(beforeBalance111, newBalance111);
         BigDecimal newBalance222 = AccountUtils.getBalance(222, restTemplate).getBody().getBalance();
         Assertions.assertEquals(beforeBalance222, newBalance222);
-    }
-
-    @Test
-    // 4
-    public void whenValidAccountDetails_thenReturnBalance() {
-        ResponseEntity<BalanceResponse> response = AccountUtils.getBalance(111, restTemplate);
-
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(BigDecimal.valueOf(100.0), response.getBody().getBalance());
-    }
-
-    @Test
-    // 5
-    public void whenInvalidAccountDetails_thenRejectBalance() {
-        ResponseEntity<BalanceResponse> response = AccountUtils.getBalance(999, restTemplate);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
 }
