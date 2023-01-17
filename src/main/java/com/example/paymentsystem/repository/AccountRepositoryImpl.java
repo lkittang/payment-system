@@ -46,8 +46,15 @@ public class AccountRepositoryImpl implements AccountRepository {
                     .filter(entry -> entry.getValue().getDetails().accountNumber() == accountNumber)
                     .findAny();
             if (recipient.isPresent()) {
-                performTransaction(recipient.get().getKey(), source.get().getKey(), amount);
-                return new PaymentResponse();
+                performTransaction(source.get().getKey(), recipient.get().getKey(), amount);
+
+                BalanceResponse balanceResponse = new BalanceResponse();
+                balanceResponse.setAccountId(source.get().getKey());
+                balanceResponse.setCurrency(Currency.valueOf(source.get().getValue().getCurrency()));
+                balanceResponse.setBalance(source.get().getValue().getBalance());
+                PaymentResponse response = new PaymentResponse();
+                response.setNewBalance(balanceResponse);
+                return response;
             } else {
                 throw new Exception();
             }
