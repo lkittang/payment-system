@@ -4,7 +4,6 @@ import com.example.paymentservice.PaymentServiceApplication;
 import com.example.paymentservice.api.AccountsApiController;
 import com.example.paymentservice.api.AccountsApiDelegateImpl;
 import com.example.paymentservice.model.TransferRequestBody;
-import com.example.paymentservice.model.TransferResponse;
 import com.example.paymentservice.repository.AccountRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,7 @@ public class PaymentSuccessTest {
         TransferRequestBody paymentRequest = TestUtils.createPaymentRequest(222000, transferAmount);
 
         // Operate
-        ResponseEntity<TransferResponse> response = TestUtils.performPayment(111, paymentRequest, restTemplate);
+        ResponseEntity<Void> response = TestUtils.performPayment(111, paymentRequest, restTemplate);
 
         // Assert
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());

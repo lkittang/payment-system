@@ -1,13 +1,12 @@
 package com.example.paymentservice.repository;
 
-import com.example.paymentservice.model.BalanceResponse;
-import com.example.paymentservice.model.Currency;
-import com.example.paymentservice.model.NewAccountRequest;
-import com.example.paymentservice.model.TransferResponse;
 import com.example.paymentservice.account.Account;
 import com.example.paymentservice.account.AccountDetails;
 import com.example.paymentservice.account.AccountImpl;
 import com.example.paymentservice.account.AccountMap;
+import com.example.paymentservice.model.BalanceResponse;
+import com.example.paymentservice.model.Currency;
+import com.example.paymentservice.model.NewAccountRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +46,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public TransferResponse performTransfer(int sourceId, int accountNumber, BigDecimal amount) throws Exception {
+    public void performTransfer(int sourceId, int accountNumber, BigDecimal amount) throws Exception {
         Optional<Map.Entry<Integer, Account>> source = accountMap.getMap().entrySet().stream()
                 .filter(entry -> entry.getKey().equals(sourceId))
                 .findAny();
@@ -58,14 +57,6 @@ public class AccountRepositoryImpl implements AccountRepository {
                     .findAny();
             if (recipient.isPresent()) {
                 performTransaction(source.get().getKey(), recipient.get().getKey(), amount);
-
-                BalanceResponse balanceResponse = new BalanceResponse();
-                balanceResponse.setAccountId(source.get().getKey());
-                balanceResponse.setCurrency(Currency.valueOf(source.get().getValue().getCurrency()));
-                balanceResponse.setBalance(source.get().getValue().getBalance());
-                TransferResponse response = new TransferResponse();
-                response.setNewBalance(balanceResponse);
-                return response;
             } else {
                 throw new Exception();
             }

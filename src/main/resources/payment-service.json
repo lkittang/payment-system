@@ -78,14 +78,6 @@
             "$ref": "#/components/schemas/currency"
           }
         }
-      },
-      "transferResponse": {
-        "type": "object",
-        "properties": {
-          "newBalance": {
-            "$ref": "#/components/schemas/balanceResponse"
-          }
-        }
       }
     },
     "parameters": {
@@ -121,17 +113,6 @@
             "schema": {
               "$ref": "#/components/schemas/balanceResponse",
               "required": ["accountId", "balance", "currency"]
-            }
-          }
-        }
-      },
-      "transferSuccessful": {
-        "description": "OK",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/transferResponse",
-              "required": ["newBalance"]
             }
           }
         }
@@ -224,7 +205,7 @@
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/transferSuccessful"
+            "description": "OK"
           },
           "404": {
             "description": "Invalid recipient account"

@@ -4,7 +4,6 @@ import com.example.paymentservice.model.AccountDetails;
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.NewAccountRequest;
 import com.example.paymentservice.model.TransferRequestBody;
-import com.example.paymentservice.model.TransferResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link AccountsApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T22:31:22.130791700+01:00[Europe/Oslo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T23:13:27.187855300+01:00[Europe/Oslo]")
 public interface AccountsApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -121,17 +120,8 @@ public interface AccountsApiDelegate {
      *         or Insufficient funds (status code 500)
      * @see AccountsApi#performTransfer
      */
-    default ResponseEntity<TransferResponse> performTransfer(Integer accountId,
+    default ResponseEntity<Void> performTransfer(Integer accountId,
         TransferRequestBody transferRequestBody) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"newBalance\" : { \"accountId\" : 0, \"balance\" : 6.027456183070403 } }";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

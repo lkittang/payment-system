@@ -3,7 +3,6 @@ package com.example.paymentservice.account;
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.Currency;
 import com.example.paymentservice.model.TransferRequestBody;
-import com.example.paymentservice.model.TransferResponse;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
@@ -31,7 +30,7 @@ public class TestUtils {
         return restTemplate.getForEntity("/accounts/" + accountId + "/balance", BalanceResponse.class);
     }
 
-    static ResponseEntity<TransferResponse> performPayment(int accountId, TransferRequestBody paymentRequest, TestRestTemplate restTemplate) {
-        return restTemplate.postForEntity("/accounts/" + accountId + "/transfer", paymentRequest, TransferResponse.class);
+    static ResponseEntity<Void> performPayment(int accountId, TransferRequestBody paymentRequest, TestRestTemplate restTemplate) {
+        return restTemplate.postForEntity("/accounts/" + accountId + "/transfer", paymentRequest, Void.class);
     }
 }
