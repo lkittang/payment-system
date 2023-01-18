@@ -31,8 +31,10 @@ public class AccountService implements AccountsApiDelegate {
         if (isAccountExists) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
+            Integer accountId = newAccountRequest.getAccountId();
             Account account = new Account(newAccountRequest.getAccountNumber(), newAccountRequest.getCurrency());
-            return ResponseEntity.ok(accountRepository.createAccount(newAccountRequest.getAccountId(), account));
+            accountRepository.createAccount(accountId, account);
+            return ResponseEntity.ok(AccountUtils.createBalanceResponse(accountId, account));
         }
     }
 
