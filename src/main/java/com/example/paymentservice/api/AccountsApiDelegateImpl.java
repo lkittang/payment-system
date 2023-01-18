@@ -27,7 +27,7 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
         if (isAccountExists) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            Account account = new Account(newAccountRequest.getAccountNumber(), Currency.EUR.getValue());
+            Account account = new Account(newAccountRequest.getAccountNumber(), Currency.EUR);
             return ResponseEntity.ok(accountRepository.createAccount(newAccountRequest.getAccountId(), account));
         }
     }
@@ -73,7 +73,7 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
         BalanceResponse balanceResponse = new BalanceResponse();
         balanceResponse.setAccountId(accountId);
         balanceResponse.setBalance(account.getBalance());
-        balanceResponse.setCurrency(Currency.fromValue(account.getCurrency()));
+        balanceResponse.setCurrency(account.getCurrency());
         return balanceResponse;
     }
 }
