@@ -1,7 +1,11 @@
 package com.example.paymentservice.api;
 
 import com.example.paymentservice.account.Account;
-import com.example.paymentservice.model.*;
+import com.example.paymentservice.account.AccountUtils;
+import com.example.paymentservice.model.AccountDetails;
+import com.example.paymentservice.model.BalanceResponse;
+import com.example.paymentservice.model.NewAccountRequest;
+import com.example.paymentservice.model.TransferRequestBody;
 import com.example.paymentservice.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +49,7 @@ public class AccountService implements AccountsApiDelegate {
                 .filter(entry -> entry.getKey().equals(accountId))
                 .findAny();
         if (accountEntry.isPresent()) {
-            return ResponseEntity.ok(createBalanceResponse(accountId, accountEntry.get().getValue()));
+            return ResponseEntity.ok(AccountUtils.createBalanceResponse(accountId, accountEntry.get().getValue()));
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -58,23 +62,26 @@ public class AccountService implements AccountsApiDelegate {
     }
 
     @Override
-    public ResponseEntity<Void> performTransfer(Integer accountId, TransferRequestBody paymentRequestBody) {
-        Integer recipientAccountNumber = paymentRequestBody.getRecipientAccountNumber();
+    public ResponseEntity<Void> performTransfer(Integer sourceId, TransferRequestBody paymentRequestBody) {
+        Account sourceAccount = accountRepository.getAccounts().get(sourceId);
         BigDecimal amount = paymentRequestBody.getAmount();
-        try {
-            accountRepository.performTransfer(accountId, recipientAccountNumber, amount);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
+        if (sourceAccount.getBalance().subtract(amount).doubleValue() < 0.0) {
             return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Map.Entry<Integer, Account>> recipientOptional = accountRepository.getAccounts().entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().getAccountNumber() == paymentRequestBody.getRecipientAccountNumber())
+                .findAny();
+        if (recipientOptional.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            Account recipientAccount = recipientOptional.get().getValue();
+            sourceAccount.setBalance(sourceAccount.getBalance().subtract(amount));
+            recipientAccount.setBalance(recipientAccount.getBalance().add(amount));
+            return ResponseEntity.ok().build();
         }
     }
 
-    private static BalanceResponse createBalanceResponse(Integer accountId, Account account) {
-        BalanceResponse balanceResponse = new BalanceResponse();
-        balanceResponse.setAccountId(accountId);
-        balanceResponse.setBalance(account.getBalance());
-        balanceResponse.setCurrency(account.getCurrency());
-        return balanceResponse;
-    }
 }
 
