@@ -76,11 +76,19 @@ public class AccountService implements AccountsApiDelegate {
         if (recipientOptional.isEmpty()) {
             return ResponseEntity.badRequest().build();
         } else {
+            Integer recipientId = recipientOptional.get().getKey();
             Account recipientAccount = recipientOptional.get().getValue();
-            sourceAccount.setBalance(sourceAccount.getBalance().subtract(amount));
-            recipientAccount.setBalance(recipientAccount.getBalance().add(amount));
+            accountRepository.updateAccount(sourceId, newBalance(sourceAccount, sourceAccount.getBalance().subtract(amount)));
+            accountRepository.updateAccount(recipientId, newBalance(recipientAccount, recipientAccount.getBalance().add(amount)));
             return ResponseEntity.ok().build();
         }
+
+    }
+
+    private static Account newBalance(Account account, BigDecimal newBalance) {
+        Account newAccount = new Account(account.getAccountNumber(), account.getCurrency());
+        newAccount.setBalance(newBalance);
+        return newAccount;
     }
 
 }
