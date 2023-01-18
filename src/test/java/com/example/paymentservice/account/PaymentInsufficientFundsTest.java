@@ -2,7 +2,7 @@ package com.example.paymentservice.account;
 
 import com.example.paymentservice.PaymentServiceApplication;
 import com.example.paymentservice.api.AccountsApiController;
-import com.example.paymentservice.api.AccountsApiDelegateImpl;
+import com.example.paymentservice.api.AccountService;
 import com.example.paymentservice.model.TransferRequestBody;
 import com.example.paymentservice.repository.AccountRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
@@ -22,7 +22,7 @@ import java.math.BigDecimal;
         classes = PaymentServiceApplication.class
 )
 @Import(TestConfig.class)
-@ContextConfiguration(classes = {AccountsApiController.class, AccountsApiDelegateImpl.class, AccountRepositoryImpl.class})
+@ContextConfiguration(classes = {AccountsApiController.class, AccountService.class, AccountRepositoryImpl.class})
 public class PaymentInsufficientFundsTest {
     @Autowired public TestRestTemplate restTemplate;
 

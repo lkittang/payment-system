@@ -4,7 +4,7 @@ import com.example.paymentservice.api.AccountsApiController;
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.NewAccountRequest;
 import com.example.paymentservice.PaymentServiceApplication;
-import com.example.paymentservice.api.AccountsApiDelegateImpl;
+import com.example.paymentservice.api.AccountService;
 import com.example.paymentservice.repository.AccountRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import java.math.BigDecimal;
         classes = PaymentServiceApplication.class
 )
 @Import(TestConfig.class)
-@ContextConfiguration(classes = {AccountsApiController.class, AccountsApiDelegateImpl.class, AccountRepositoryImpl.class})
+@ContextConfiguration(classes = {AccountsApiController.class, AccountService.class, AccountRepositoryImpl.class})
 public class CreateAccountTest {
     @Autowired public TestRestTemplate restTemplate;
 

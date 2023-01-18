@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class AccountsApiDelegateImpl implements AccountsApiDelegate {
+public class AccountService implements AccountsApiDelegate {
 
     @Autowired private final AccountRepository accountRepository;
 
