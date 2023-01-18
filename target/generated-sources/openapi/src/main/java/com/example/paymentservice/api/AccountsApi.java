@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T23:13:27.187855300+01:00[Europe/Oslo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-18T07:42:08.315748700+01:00[Europe/Oslo]")
 @Validated
 @Tag(name = "accounts", description = "the accounts API")
 @RequestMapping("${openapi.paymentService.base-path:}")

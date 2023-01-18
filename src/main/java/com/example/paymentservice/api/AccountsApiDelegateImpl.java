@@ -27,7 +27,7 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
         if (isAccountExists) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            Account account = new Account(newAccountRequest.getAccountNumber(), Currency.EUR);
+            Account account = new Account(newAccountRequest.getAccountNumber(), newAccountRequest.getCurrency());
             return ResponseEntity.ok(accountRepository.createAccount(newAccountRequest.getAccountId(), account));
         }
     }

@@ -2,6 +2,7 @@ package com.example.paymentservice.model;
 
 import java.net.URI;
 import java.util.Objects;
+import com.example.paymentservice.model.Currency;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -20,7 +21,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("newAccountRequest")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-17T23:13:27.187855300+01:00[Europe/Oslo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-01-18T07:42:08.315748700+01:00[Europe/Oslo]")
 public class NewAccountRequest {
 
   @JsonProperty("accountId")
@@ -28,6 +29,9 @@ public class NewAccountRequest {
 
   @JsonProperty("accountNumber")
   private Integer accountNumber;
+
+  @JsonProperty("currency")
+  private Currency currency;
 
   public NewAccountRequest accountId(Integer accountId) {
     this.accountId = accountId;
@@ -67,6 +71,25 @@ public class NewAccountRequest {
     this.accountNumber = accountNumber;
   }
 
+  public NewAccountRequest currency(Currency currency) {
+    this.currency = currency;
+    return this;
+  }
+
+  /**
+   * Get currency
+   * @return currency
+  */
+  @Valid 
+  @Schema(name = "currency", required = false)
+  public Currency getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(Currency currency) {
+    this.currency = currency;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -77,12 +100,13 @@ public class NewAccountRequest {
     }
     NewAccountRequest newAccountRequest = (NewAccountRequest) o;
     return Objects.equals(this.accountId, newAccountRequest.accountId) &&
-        Objects.equals(this.accountNumber, newAccountRequest.accountNumber);
+        Objects.equals(this.accountNumber, newAccountRequest.accountNumber) &&
+        Objects.equals(this.currency, newAccountRequest.currency);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, accountNumber);
+    return Objects.hash(accountId, accountNumber, currency);
   }
 
   @Override
@@ -91,6 +115,7 @@ public class NewAccountRequest {
     sb.append("class NewAccountRequest {\n");
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("}");
     return sb.toString();
   }

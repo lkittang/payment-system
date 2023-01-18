@@ -37,6 +37,9 @@
           },
           "accountNumber": {
             "$ref": "#/components/schemas/accountNumber"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/currency"
           }
         }
       },
@@ -130,7 +133,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/newAccountRequest",
-                "required": ["accountId", "accountNumber"]
+                "required": ["accountId", "accountNumber", "currency"]
               }
             }
           }
