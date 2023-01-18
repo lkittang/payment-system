@@ -1,6 +1,5 @@
 package com.example.paymentservice.repository;
 
-import com.example.paymentservice.account.AccountDetails;
 import com.example.paymentservice.account.Account;
 import com.example.paymentservice.account.AccountMap;
 import com.example.paymentservice.model.BalanceResponse;
@@ -24,8 +23,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public BalanceResponse createAccount(NewAccountRequest request) {
         Currency currency = Currency.EUR;
-        AccountDetails accountDetails = new AccountDetails(request.getAccountId(), request.getAccountNumber());
-        Account account = new Account(accountDetails, currency.getValue());
+        Account account = new Account(request.getAccountId(), request.getAccountNumber(), currency.getValue());
         accountMap.getMap().put(request.getAccountId(), account);
         BalanceResponse balanceResponse = new BalanceResponse();
         balanceResponse.setAccountId(request.getAccountId());
@@ -52,7 +50,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         if (source.isPresent()
                 && source.get().getValue().getBalance().subtract(amount).doubleValue() >= 0.0) {
             Optional<Map.Entry<Integer, Account>> recipient = accountMap.getMap().entrySet().stream()
-                    .filter(entry -> entry.getValue().getDetails().accountNumber() == accountNumber)
+                    .filter(entry -> entry.getValue().getAccountNumber() == accountNumber)
                     .findAny();
             if (recipient.isPresent()) {
                 performTransaction(source.get().getKey(), recipient.get().getKey(), amount);

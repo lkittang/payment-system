@@ -23,7 +23,7 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
     public ResponseEntity<BalanceResponse> createNewAccount(NewAccountRequest newAccountRequest) {
         System.out.println("POST /");
         boolean isAccountExists = accountRepository.getAccounts().entrySet().stream()
-                .anyMatch(accountEntry -> accountEntry.getValue().getDetails().id() == newAccountRequest.getAccountId());
+                .anyMatch(accountEntry -> accountEntry.getValue().getAccountId() == newAccountRequest.getAccountId());
         if (isAccountExists) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {

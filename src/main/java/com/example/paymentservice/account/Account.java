@@ -8,7 +8,8 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 @Getter
 public class Account {
-    private final AccountDetails details;
+    private final int accountId;
+    private final int accountNumber;
     private final String currency;
     private BigDecimal balance = BigDecimal.valueOf(0.0);
 

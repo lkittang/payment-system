@@ -13,7 +13,7 @@ public class TestUtils {
     private TestUtils() {}
 
     static Account createAccount(int accountId, int accountNumber, String currency, double balance) {
-        Account account = new Account(new AccountDetails(accountId, accountNumber), currency);
+        Account account = new Account(accountId, accountNumber, currency);
         account.setBalance(BigDecimal.valueOf(balance));
         return account;
     }
