@@ -4,7 +4,6 @@ import com.example.paymentservice.account.Account;
 import com.example.paymentservice.account.AccountMap;
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.Currency;
-import com.example.paymentservice.model.NewAccountRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +20,11 @@ public class AccountRepositoryImpl implements AccountRepository {
 
 
     @Override
-    public BalanceResponse createAccount(NewAccountRequest request) {
+    public BalanceResponse createAccount(int accountId, Account account) {
         Currency currency = Currency.EUR;
-        Account account = new Account(request.getAccountId(), request.getAccountNumber(), currency.getValue());
-        accountMap.getMap().put(request.getAccountId(), account);
+        accountMap.getMap().put(accountId, account);
         BalanceResponse balanceResponse = new BalanceResponse();
-        balanceResponse.setAccountId(request.getAccountId());
+        balanceResponse.setAccountId(accountId);
         balanceResponse.setCurrency(currency);
         balanceResponse.setBalance(account.getBalance());
         return balanceResponse;

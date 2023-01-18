@@ -23,11 +23,12 @@ public class AccountsApiDelegateImpl implements AccountsApiDelegate {
     public ResponseEntity<BalanceResponse> createNewAccount(NewAccountRequest newAccountRequest) {
         System.out.println("POST /");
         boolean isAccountExists = accountRepository.getAccounts().entrySet().stream()
-                .anyMatch(accountEntry -> accountEntry.getValue().getAccountId() == newAccountRequest.getAccountId());
+                .anyMatch(accountEntry -> accountEntry.getKey().equals(newAccountRequest.getAccountId()));
         if (isAccountExists) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            return ResponseEntity.ok(accountRepository.createAccount(newAccountRequest));
+            Account account = new Account(newAccountRequest.getAccountNumber(), Currency.EUR.getValue());
+            return ResponseEntity.ok(accountRepository.createAccount(newAccountRequest.getAccountId(), account));
         }
     }
 

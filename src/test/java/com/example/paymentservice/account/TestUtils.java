@@ -12,8 +12,8 @@ public class TestUtils {
 
     private TestUtils() {}
 
-    static Account createAccount(int accountId, int accountNumber, String currency, double balance) {
-        Account account = new Account(accountId, accountNumber, currency);
+    static Account createAccount(int accountNumber, String currency, double balance) {
+        Account account = new Account( accountNumber, currency);
         account.setBalance(BigDecimal.valueOf(balance));
         return account;
     }
