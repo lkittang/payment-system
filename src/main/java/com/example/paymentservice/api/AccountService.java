@@ -25,7 +25,6 @@ public class AccountService implements AccountsApiDelegate {
 
     @Override
     public ResponseEntity<BalanceResponse> createNewAccount(NewAccountRequest newAccountRequest) {
-        System.out.println("POST /");
         boolean isAccountExists = accountRepository.getAccounts().entrySet().stream()
                 .anyMatch(accountEntry -> accountEntry.getKey().equals(newAccountRequest.getAccountId()));
         if (isAccountExists) {
@@ -40,13 +39,12 @@ public class AccountService implements AccountsApiDelegate {
 
     @Override
     public ResponseEntity<Void> deleteAccount(Integer accountId) {
-        System.out.println("DELETE /" + accountId);
-        return AccountsApiDelegate.super.deleteAccount(accountId);
+        accountRepository.deleteAccount(accountId);
+        return ResponseEntity.ok().build();
     }
 
     @Override
     public ResponseEntity<BalanceResponse> getAccountBalance(Integer accountId) {
-        System.out.println("GET /" + accountId + "/balance");
         Optional<Map.Entry<Integer, Account>> accountEntry = accountRepository.getAccounts().entrySet().stream()
                 .filter(entry -> entry.getKey().equals(accountId))
                 .findAny();
@@ -59,7 +57,7 @@ public class AccountService implements AccountsApiDelegate {
 
     @Override
     public ResponseEntity<AccountDetails> getAccountDetails(Integer accountId) {
-        System.out.println("GET /" + accountId);
+        //TODO: Not implemented
         return AccountsApiDelegate.super.getAccountDetails(accountId);
     }
 
