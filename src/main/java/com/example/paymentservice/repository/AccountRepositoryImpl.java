@@ -1,8 +1,7 @@
 package com.example.paymentservice.repository;
 
-import com.example.paymentservice.account.Account;
 import com.example.paymentservice.account.AccountDetails;
-import com.example.paymentservice.account.AccountImpl;
+import com.example.paymentservice.account.Account;
 import com.example.paymentservice.account.AccountMap;
 import com.example.paymentservice.model.BalanceResponse;
 import com.example.paymentservice.model.Currency;
@@ -26,7 +25,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     public BalanceResponse createAccount(NewAccountRequest request) {
         Currency currency = Currency.EUR;
         AccountDetails accountDetails = new AccountDetails(request.getAccountId(), request.getAccountNumber());
-        Account account = new AccountImpl(accountDetails, currency.getValue());
+        Account account = new Account(accountDetails, currency.getValue());
         accountMap.getMap().put(request.getAccountId(), account);
         BalanceResponse balanceResponse = new BalanceResponse();
         balanceResponse.setAccountId(request.getAccountId());
